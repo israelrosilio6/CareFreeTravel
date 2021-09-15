@@ -1,0 +1,94 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="80">
+        <button style="border-radius: 25px;" mat-raised-button class="mb-05 full-width" color="primary"
+                (click)="openPopUp({isNew: true , value: {}}, true)">
+            Find me a trip
+        </button>
+    </div>
+</div>
+
+<mat-card class="p-0" *ngIf="selectedTripPreferences"
+          style="min-height: 250px;
+            background-color: rgba(66,66,66,0.8);
+            border-radius: 15px;">
+    <div fxLayout="row">
+        <div fxFlex="100">
+            <h4 fxLayoutAlign="center center" class="full-width">
+                From:
+                {{selectedTripPreferences.startDate | date:'dd/MM/yyyy'}}
+                To:
+                {{selectedTripPreferences.endDate | date:'dd/MM/yyyy'}}
+            </h4>
+        </div>
+    </div>
+
+    <mat-card-content class="p-0">
+        <div fxLayout="row" class="full-width" style="margin: 12px;padding: 4px;">
+            <div fxLayout="column" fxFlex="33.33">
+                <h3>Trip Details</h3>
+                <ol>
+                    <li>
+                        <p> Budget: {{selectedTripPreferences.budget}}</p>
+                    </li>
+                    <li>
+                        <p> Trip Type: {{selectedTripPreferences.type}}</p>
+                    </li>
+                    <li>
+                        <p> Location: {{selectedTripPreferences.location}}</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div fxLayout="column" fxFlex="33.33">
+                <h3>Preferences</h3>
+                <ol>
+                    <li *ngFor="let preference of selectedTripPreferences.preferences">
+                        {{preference}}
+                    </li>
+                </ol>
+            </div>
+            <div fxLayout="column" fxFlex="33.33">
+                <h3>Personal Customization</h3>
+                <ol>
+                    <li *ngFor="let extra of selectedTripPreferences.extra">
+                        {{extra}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+<!--result section-->
+
+<mat-card class="p-0" style="min-height: 250px;
+            background-color: rgba(66,66,66,0.8);
+            border-radius: 15px;" *ngIf="result">
+
+    <div fxLayout="row">
+        <div fxFlex="100">
+            <h4 fxLayoutAlign="center center" class="full-width">
+                Budget utilization: {{budgetExploit}}$ from {{selectedTripPreferences.budget}}$
+                ~ {{budgetExploit / selectedTripPreferences.budget * 100 | number:'.00'}}%
+            </h4>
+
+            <mat-slider class="full-width" [thumb-label]="true" style="margin-top: 50px;" min="0" max="10000" step="50"
+                        value="{{selectedTripPreferences.budget}}"
+                        (change)="selectedTripPreferences.budget = $event.value; tripsService.QueryRemoteResources(selectedTripPreferences) ">
+            </mat-slider>
+        </div>
+    </div>
+    <perfect-scrollbar style="max-height: calc(100vh - 600px)">
+        <mat-card-content class="p-0">
+            <mat-list>
+                <mat-list-item *ngFor="let trip of result">
+                    {{trip.description + ',  ' + trip.cost + '$' }}
+
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </perfect-scrollbar>
+
+</mat-card>
+

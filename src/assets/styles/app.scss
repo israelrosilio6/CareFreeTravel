@@ -1,0 +1,23 @@
+
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '../../vendor/pace/pace-theme-min.css';
+@import "scss/variables";
+@import "scss/themes";
+@import "scss/main";
+@import "scss/views";
+
+.main-content-wrap{
+ background: url('../../assets/images/screenshots/trip.jpg') no-repeat;
+ height: 100%;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+
+.sign-in-background{
+ background: url('../../assets/images/screenshots/trip.jpg') no-repeat;
+ height: 100%;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+}

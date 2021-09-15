@@ -1,0 +1,206 @@
+<div fxLayout="row" class="full-width">
+    <h1 matDialogTitle>{{data.title}}</h1>
+</div>
+<div fxLayout="row" class="full-width">
+    <mat-horizontal-stepper fxFlex="100" [linear]="true" #stepper="matHorizontalStepper">
+        <!--date-->
+        <mat-step [stepControl]="datesForm">
+            <form [formGroup]="datesForm">
+                <ng-template matStepLabel>Dates</ng-template>
+                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+                    <div fxFlex="50" class="pr-1">
+                        <mat-form-field class="full-width">
+                            <input
+                                    matInput
+                                    name="startDate"
+                                    formControlName="startDate"
+                                    placeholder="Start Date"
+                                    [matDatepicker]="startDatePicker"
+                                    #startDate
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #startDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" class="pr-1">
+                        <mat-form-field class="full-width">
+                            <input
+                                    matInput
+                                    name="endDate"
+                                    formControlName="endDate"
+                                    placeholder="End Date"
+                                    [matDatepicker]="endDatePicker">
+                            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #endDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button
+                        mat-button
+                        mat-raised-button
+                        color="primary"
+                        type="button"
+                        style="border-radius: 15px"
+                        matStepperNext>Next
+                </button>
+            </form>
+        </mat-step>
+
+        <!--location-->
+        <mat-step [stepControl]="locationForm">
+            <form [formGroup]="locationForm">
+                <ng-template matStepLabel>Location</ng-template>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="location" formControlName="location" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperPrevious>Back
+                    </button>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperNext>Next
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!--type-->
+        <mat-step [stepControl]="typeForm">
+            <form [formGroup]="typeForm">
+                <ng-template matStepLabel>Trip Type</ng-template>
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Choose Trip Type" formControlName="type">
+                        <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperPrevious>Back
+                    </button>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperNext>Next
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!--budget-->
+        <mat-step [stepControl]="budgetForm">
+            <form [formGroup]="budgetForm">
+                <ng-template matStepLabel>Budget</ng-template>
+                <mat-slider class="full-width" style="margin-top: 50px;" min="0" max="10000" step="50" value="50"
+                            formControlName="budget">
+                </mat-slider>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div fxFlex="80">
+                        <h1 class="full-width text-center">{{budgetForm.controls['budget'].value}}$</h1>
+                    </div>
+                </div>
+                <div>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperPrevious>Back
+                    </button>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperNext>Next
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!--Preferences-->
+        <mat-step [stepControl]="preferencesForm">
+            <form [formGroup]="preferencesForm">
+                <ng-template matStepLabel>Personal Preferences</ng-template>
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Preferences" formControlName="preferences" multiple>
+                        <mat-option *ngFor="let type of preferences" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperPrevious>Back
+                    </button>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperNext>Next
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!--extra questions-->
+        <mat-step [stepControl]="extraQuestionsForm">
+            <form [formGroup]="extraQuestionsForm">
+                <ng-template matStepLabel>Personal Customization</ng-template>
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="extra questions" formControlName="extra" multiple>
+                        <mat-option *ngFor="let type of extra" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperPrevious>Back
+                    </button>
+                    <button mat-button
+                            mat-raised-button
+                            color="primary"
+                            type="button"
+                            style="border-radius: 15px" matStepperNext>Next
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <div>
+                <button mat-button
+                        mat-raised-button
+                        color="primary"
+                        type="button"
+                        style="border-radius: 15px" matStepperPrevious>Back
+                </button>
+                <button mat-button
+                        mat-raised-button
+                        color="primary"
+                        type="button"
+                        style="border-radius: 15px" (click)="submit()">Build a trip
+                </button>
+            </div>
+        </mat-step>
+
+
+    </mat-horizontal-stepper>
+</div>
+<div fxLayout="row" class="full-width">
+    <div fxFlex="100" class="mt-1">
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Abort</button>
+    </div>
+</div>
